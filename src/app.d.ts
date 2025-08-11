@@ -8,6 +8,8 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	export type Theme = 'primary' | 'accent1' | 'accent2' | 'accent3' | 'light' | 'neutral' | 'danger' | 'success';
 }
 
 export {};

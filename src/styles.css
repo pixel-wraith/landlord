@@ -1,0 +1,537 @@
+@font-face {
+	font-family: 'AmaticSC';
+	src: url('/fonts/Amatic_SC/AmaticSC-Regular.ttf') format('truetype');
+	font-display: fallback;
+}
+
+@font-face {
+	font-family: 'AmaticSC';
+	src: url('/fonts/Amatic_SC/AmaticSC-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-display: fallback;
+}
+
+@font-face {
+	font-family: 'Andika';
+	src: url('/fonts/Andika/Andika-Regular.ttf') format('truetype');
+	font-display: fallback;
+}
+
+@font-face {
+	font-family: 'Andika';
+	src: url('/fonts/Andika/Andika-Italic.ttf') format('truetype');
+	font-style: italic;
+	font-display: fallback;
+}
+
+@font-face {
+	font-family: 'Andika';
+	src: url('/fonts/Andika/Andika-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-display: fallback;
+}
+
+@font-face {
+	font-family: 'Andika';
+	src: url('/fonts/Andika/Andika-BoldItalic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: bold;
+	font-display: fallback;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background: #000;
+	box-sizing: border-box;
+}
+
+body {
+	/* when any colors change, be sure to update /lib/constants/colors as well */
+	--neutral-0: oklch(5% 0 3);
+	--neutral-50: oklch(10% 0 3);
+	--neutral-100: oklch(15% 0 3);
+	--neutral-150: oklch(20% 0 3);
+	--neutral-200: oklch(25% 0 3);
+	--neutral-250: oklch(30% 0 3);
+	--neutral-300: oklch(35% 0 3);
+	--neutral-350: oklch(40% 0 3);
+	--neutral-400: oklch(45% 0 3);
+	--neutral-450: oklch(50% 0 3);
+	--neutral-500: oklch(55% 0 3);
+	--neutral-550: oklch(60% 0 3);
+	--neutral-600: oklch(65% 0 3);
+	--neutral-650: oklch(70% 0 3);
+	--neutral-700: oklch(75% 0 3);
+	--neutral-750: oklch(80% 0 3);
+	--neutral-800: oklch(85% 0 3);
+	--neutral-850: oklch(90% 0 3);
+	--neutral-900: oklch(95% 0 3);
+
+	--primary-100: oklch(34.33% 0.076 95.63);
+	--primary-200: oklch(46.68% 0.106 95.63);
+	--primary-300: oklch(60.8% 0.136 95.63);
+	--primary-400: oklch(76.97% 0.171 95.63);
+	--primary-500: oklch(88.99% 0.1992 95.63);
+	--primary-600: oklch(87.86% 0.142 95.63);
+	--primary-700: oklch(86.38% 0.098 95.63);
+	--primary-800: oklch(90.21% 0.066 95.63);
+	--primary-900: oklch(92.86% 0.0562 95.63);
+
+	--accent1-100: oklch(29.03% 0.125 8.16);
+	--accent1-200: oklch(35.8% 0.155 8.16);
+	--accent1-300: oklch(44.03% 0.189 8.16);
+	--accent1-400: oklch(52.27% 0.23 8.16);
+	--accent1-500: oklch(65.8% 0.286 8.16);
+	--accent1-600: oklch(70.8% 0.211 8.16);
+	--accent1-700: oklch(72.56% 0.158 8.16);
+	--accent1-800: oklch(80.21% 0.13 8.16);
+	--accent1-900: oklch(86.09% 0.069 8.16);
+
+	--accent2-100: oklch(24.62% 0.125 301.46);
+	--accent2-200: oklch(32.27% 0.177 301.46);
+	--accent2-300: oklch(38.74% 0.21 301.46);
+	--accent2-400: oklch(48.74% 0.265 301.46);
+	--accent2-500: oklch(56.97% 0.302 301.46);
+	--accent2-600: oklch(63.74% 0.246 301.46);
+	--accent2-700: oklch(68.44% 0.18 301.46);
+	--accent2-800: oklch(77.56% 0.146 301.46);
+	--accent2-900: oklch(84.62% 0.099 301.46);
+
+	--accent3-100: oklch(29.33% 0.095 43.1);
+	--accent3-200: oklch(39.33% 0.127 43.1);
+	--accent3-300: oklch(47.86% 0.157 43.1);
+	--accent3-400: oklch(57.86% 0.185 43.1);
+	--accent3-500: oklch(69.33% 0.219 43.1);
+	--accent3-600: oklch(75.21% 0.182 43.1);
+	--accent3-700: oklch(78.74% 0.141 43.1);
+	--accent3-800: oklch(83.15% 0.113 43.1);
+	--accent3-900: oklch(88.74% 0.076 43.1);
+
+	--danger-100: oklch(24.12% 0.101 23.82);
+	--danger-200: oklch(34.12% 0.15 23.82);
+	--danger-300: oklch(41.76% 0.18 23.82);
+	--danger-400: oklch(52.35% 0.227 23.82);
+	--danger-500: oklch(59.71% 0.261 23.82);
+	--danger-600: oklch(66.76% 0.249 23.82);
+	--danger-700: oklch(72.35% 0.19 23.82);
+	--danger-800: oklch(82.35% 0.116 23.82);
+	--danger-900: oklch(87.35% 0.079 23.82);
+
+	--success-100: oklch(29.91% 0.061 198.75);
+	--success-200: oklch(41.38% 0.085 198.75);
+	--success-300: oklch(51.38% 0.1088 198.75);
+	--success-400: oklch(66.09% 0.1453 198.75);
+	--success-500: oklch(80.8% 0.163 198.75);
+	--success-600: oklch(87.86% 0.156 198.75);
+	--success-700: oklch(85.21% 0.112 198.75);
+	--success-800: oklch(87.86% 0.073 198.75);
+	--success-900: oklch(91.68% 0.047 198.75);
+
+	--header-font: AmaticSC, sans-serif;
+	--body-font: Andika, sans-serif;
+
+	--outline-offset: 3px;
+
+	background-color: var(--neutral-100);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+span,
+input,
+label,
+button,
+a,
+li,
+ul,
+ol,
+textarea,
+select,
+option,
+form,
+section,
+header,
+footer,
+main,
+nav {
+	color: var(--neutral-900);
+}
+
+body * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: var(--body-font);
+	font-size: 0.9rem;	  
+	transition: color 0.25s ease-in-out,
+				background-color 0.25s ease-in-out,
+				border-color 0.25s ease-in-out,
+				opacity 0.25s ease-in-out;
+	
+	&::selection {
+		background-color: var(--primary-500);
+		color: var(--neutral-50);
+	}
+				  
+
+	@media (min-width: 768px) {
+		font-size: 0.875rem;
+	}
+
+	&::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: var(--neutral-300);
+		border-radius: 3px;
+	}
+
+	scrollbar-width: thin;
+	scrollbar-color: var(--neutral-300) transparent;
+}
+
+a,
+button,
+input,
+textarea,
+select,
+label:has(input:focus-visible) {
+	outline: none !important;
+
+	&:not(.no-outline):focus-visible {
+		outline: 1px dashed var(--neutral-800) !important;
+		outline-offset: calc(var(--outline-offset) - 1px) !important;
+	}
+}
+
+input,
+textarea {
+	font-size: 1rem;
+
+	@media (min-width: 768px) {
+		font-size: 0.875rem;
+	}
+}
+
+p:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--header-font);
+	color: var(--primary-500);
+	letter-spacing: 0.05rem;
+	text-align: left;
+}
+
+h1 *,
+.h1,
+h2 *,
+.h2,
+h3 *,
+.h3,
+h4 *,
+.h4,
+h5 *,
+.h5,
+h6 *,
+.h6 {
+	font-family: var(--header-font);
+	color: var(--primary-500);
+	letter-spacing: 0.05rem;
+}
+
+.header-font,
+.header-font * {
+	font-family: var(--header-font);
+	letter-spacing: 0.05rem;
+}
+
+h1,
+h1 *,
+.h1 {
+	margin-bottom: 0.8rem;
+	font-size: 2rem;
+	line-height: 2.2rem;
+}
+
+h2,
+h2 *,
+.h2 {
+	margin-bottom: 0.3rem;
+	font-size: 1.7rem;
+	line-height: 2rem;
+}
+
+h3,
+h3 *,
+.h3 {
+	margin-bottom: 0.3rem;
+	font-size: 1.45rem;
+	line-height: 1.6rem;
+}
+
+h4,
+h4 *,
+.h4 {
+	margin-bottom: 0.3rem;
+	font-size: 1.25rem;
+	line-height: 1.5rem;
+}
+
+h5,
+h5 *,
+.h5 {
+	margin-bottom: 0.3rem;
+	font-size: 1.1rem;
+	line-height: 1.25rem;
+}
+
+h6,
+h6 *,
+.h6 {
+	margin-bottom: 0.3rem;
+	font-size: 1rem;
+	line-height: 1.15rem;
+}
+
+p {
+	line-height: 1.5rem;
+	margin-bottom: 0.5rem;
+}
+
+/* helper classes */
+.error {
+	color: var(--danger-500);
+	font-size: 0.875rem;
+	line-height: 1.1rem;
+	text-indent: 0;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.text-center {
+	text-align: center;
+}
+
+/*****************************************/
+/*         markdown editor styles        */
+/*****************************************/
+.markdown-editor-preview {
+	flex-grow: var(--markdown-editor-flex-grow);
+
+	& > :first-child {
+		margin-top: 0 !important;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: var(--primary-500);
+		text-align: left;
+	}
+
+	a {
+		color: var(--primary-500);
+		border-radius: 0.25rem;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	input[type="checkbox"] {
+		width: 1.25rem;
+		height: 1.25rem;
+		background-color: var(--neutral-100);
+		border: 1px solid var(--neutral-350);
+		border-radius: 0.25rem;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		outline: 0;
+		cursor: pointer;
+
+		&:checked {
+			&::before {
+				content: '🐝';
+				display: block;
+				text-align: center;
+				line-height: 1.25rem;
+				color: var(--primary-300);
+			}
+		}
+	}
+
+	table {
+		width: 100%;
+		margin: 1.5rem 0;
+		border-collapse: collapse;
+		overflow: auto;
+
+		thead {
+			th:nth-child(odd) {
+				background: var(--primary-200);
+			}
+
+			& th:nth-child(even) {
+				background: var(--primary-100);
+			}
+		}
+
+		th,
+		td {
+			padding: 0.5rem;
+		}
+
+		tbody {
+			tr {
+				&:nth-child(odd) {
+					td:nth-child(odd) {
+						background: var(--neutral-150);
+					}
+
+					td:nth-child(even) {
+						background: var(--neutral-100);
+					}
+				}
+
+				&:nth-child(even) {
+					td:nth-child(odd) {
+						background: var(--neutral-200);
+					}
+
+					td:nth-child(even) {
+						background: var(--neutral-150);
+					}
+				}
+			}
+		}
+	}
+
+	ul,
+	ol {
+		display: block;
+		padding-left: 1rem;
+		list-style-position: inside;
+		
+		ul,
+		ol {
+			padding-top: 0.25rem;
+		}
+
+		li {
+			padding: 0.15rem;
+
+			&:last-child {
+				padding-bottom: 0;
+			}
+
+			&:has(p) p {
+				display: inline-block;
+				margin: 0;
+			}
+
+			&:has(input[type="checkbox"]) {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				&::marker {
+					content: none;
+				}
+
+				& p {
+					display: flex;
+					align-items: center;
+					gap: 0.5rem;
+					margin: 0;
+				}
+			}
+		}
+
+		li::marker {
+			color: var(--primary-300);
+		}
+	}
+
+	> ul,
+	> ol {
+		margin: 1rem 0;
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
+	code {
+		padding: 0.1rem 0.25rem;
+		background: var(--neutral-250);
+		text-wrap: wrap;
+	}
+
+	pre code {
+		display: block;
+		margin: 1.5rem 0;
+		padding: 0.5rem;
+	}
+
+	img {
+		display: block;
+		max-width: 90%;
+		height: auto;
+		margin: 1.5rem 0;
+	}
+
+	blockquote {
+		padding: 0.5rem;
+		margin: 1.5rem 0;
+		border-left: 0.25rem solid var(--primary-500);
+		background: var(--neutral-100);
+
+		& * {
+			margin: 0;
+		}
+	}
+
+	hr {
+		margin: 1.5rem 0;
+		border: none;
+		border-top: 1px solid var(--neutral-200);
+	}
+}

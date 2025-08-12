@@ -1,41 +1,34 @@
-import { db } from '$lib/server/db';
-import { user } from '$lib/server/db/schema/user';
+import { UserService } from '$lib/services/user';
 import type { Actions } from './$types';
 
 export const actions = {
 	default: async (event) => {
-        const data = await event.request.formData();
-        const email = data.get('email');
-        const password = data.get('password');
+        try {
+            const data = await event.request.formData();
+            const email = data.get('email');
+            const password = data.get('password');
 
-        if (!email || !password) {
+            const userService = new UserService();
+            const newUser = await userService.createUser(email as string, password as string);
+            
+            console.log('Creating new database for user...');
+            
+            // Create a new database for the user
+            const userWithDatabase = await userService.createUserDatabase(newUser[0].id);
+            
+            console.log('Database created successfully:', userWithDatabase.databaseName);
+
+            return {
+                user: userWithDatabase.user,
+                success: true,
+                message: 'User created successfully with dedicated database'
+            };
+        } catch (error) {
+            console.error('Error during signup:', error);
             return {
                 success: false,
-                message: 'Email and password are required'
+                message: error instanceof Error ? error.message : 'An error occurred during signup'
             };
         }
-
-        const newUser = await db.insert(user)
-            .values({
-                email: String(email),
-                password: String(password)
-            })
-            .returning();
-
-        if (!newUser) {
-            return {
-                success: false,
-                message: 'Failed to create user'
-            };
-        }
-
-        console.log('New user created:', newUser);
-		
-		console.log('Creating new database for user...');
-
-        return {
-            success: true,
-            message: 'User created successfully'
-        };
 	},
 } satisfies Actions;

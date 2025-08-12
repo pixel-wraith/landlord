@@ -9,7 +9,7 @@ services:
       - NODE_ENV=${NODE_ENV:-development}
       - PUBLIC_APP_ENV=${PUBLIC_APP_ENV:-development}
       #  postgres://root:mysecretpassword@localhost:5432/local
-      - DATABASE_URL=postgresql://root:mysecretpassword@db:5432/local
+      - DATABASE_URL=${DATABASE_URL:-postgresql://root:mysecretpassword@db:5432/local}
       - VITE_HOST=0.0.0.0
     depends_on:
       db:

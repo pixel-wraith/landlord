@@ -8,15 +8,23 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV:-development}
       - PUBLIC_APP_ENV=${PUBLIC_APP_ENV:-development}
-      - DATABASE_URL=${DATABASE_URL}
+      #  postgres://root:mysecretpassword@localhost:5432/local
+      - DATABASE_URL=postgresql://root:mysecretpassword@db:5432/local
       - VITE_HOST=0.0.0.0
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - .:/app
       - /app/node_modules
     working_dir: /app
-    command: npm run dev
+    command: >
+      sh -c "
+        echo '⏳ Waiting for PostgreSQL...' &&
+        npm run db:generate &&
+        npm run db:migrate &&
+        npm run dev
+      "
 
   db:
     image: postgres
@@ -29,6 +37,12 @@ services:
       POSTGRES_DB: local
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
   pgdata:

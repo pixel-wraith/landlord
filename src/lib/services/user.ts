@@ -95,6 +95,15 @@ export class UserService {
                 .where(eq(user.id, userId))
                 .returning();
 
+            // Apply tenant migrations to the new database
+            try {
+                await this.applyTenantMigrationsToDatabase(databaseName, mainDbUrl);
+                console.log(`Applied tenant migrations to ${databaseName}`);
+            } catch (migrationError) {
+                console.error(`Warning: Failed to apply tenant migrations to ${databaseName}:`, migrationError);
+                // Don't fail the user creation if migrations fail
+            }
+
             return {
                 user: updatedUser,
                 databaseName,
@@ -102,6 +111,30 @@ export class UserService {
             };
         } catch (error: unknown) {
             console.error('Error creating user database:', error);
+            throw error;
+        }
+    }
+
+    private async applyTenantMigrationsToDatabase(databaseName: string, mainDbUrl: string) {
+        try {
+            // Create connection to tenant database
+            const tenantDbUrl = new URL(mainDbUrl);
+            tenantDbUrl.pathname = `/${databaseName}`;
+
+            const tenantClient = postgres(tenantDbUrl.toString());
+            const { drizzle } = await import('drizzle-orm/postgres-js');
+            const tenantDb = drizzle(tenantClient);
+
+            // Apply migrations from tenant-migrations directory
+            const { migrate } = await import('drizzle-orm/postgres-js/migrator');
+            const { join } = await import('path');
+            
+            const migrationsDir = join(process.cwd(), 'src/lib/server/db/tenant-migrations');
+            
+            await migrate(tenantDb, { migrationsFolder: migrationsDir });
+            await tenantClient.end();
+        } catch (error) {
+            console.error(`Error applying tenant migrations to ${databaseName}:`, error);
             throw error;
         }
     }

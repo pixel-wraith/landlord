@@ -1,0 +1,1 @@
+ALTER TABLE "log_message" ADD COLUMN "subject" text;

@@ -14,7 +14,10 @@
 		"db:start": "docker compose up",
 		"db:push": "drizzle-kit push",
 		"db:generate": "drizzle-kit generate",
+		"db:generate:tenant": "drizzle-kit generate --config=drizzle.tenant.config.ts",
 		"db:migrate": "drizzle-kit migrate",
+		"db:migrate:tenant": "tsx src/lib/server/db/scripts/apply-tenant-migrations.ts",
+
 		"db:studio": "drizzle-kit studio",
 		"db:psql": "psql -h localhost -p 5433 -U root -d local"
 	},
@@ -32,6 +35,7 @@
 		"globals": "^16.0.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
+		"tsx": "^4.19.2",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
 		"vite": "^7.0.4"
